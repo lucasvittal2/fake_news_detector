@@ -16,9 +16,9 @@ class ProjectPathsSetup():
  
         
 
-    def add_project_paths(self):
+    def add_project_paths(self, project_path):
         
-        all_directories = self.__get_all_directories('../')
+        all_directories = self.__get_all_directories(project_path)
 
         for dir in all_directories:
             sys.path.append(dir)
