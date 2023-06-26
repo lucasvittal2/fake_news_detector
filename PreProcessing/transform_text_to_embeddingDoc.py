@@ -23,7 +23,7 @@ from PreProcessing.Encoders.EmbeddingDocEncoder import EmbeddingDocEncoder
 fake_news_df = pd.read_csv(TRUE_NEWS_DATASET)
 true_news_df = pd.read_csv(FAKE_NEWS_DATASET)
 
-news_df = Cocatenator().concatenate( fake_news_df, true_news_df).iloc[:30]
+news_df = Cocatenator().concatenate( fake_news_df, true_news_df)
 
 print('\n')
 print('Inicializing Preprocessing setup...')
