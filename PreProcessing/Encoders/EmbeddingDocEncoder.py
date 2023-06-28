@@ -1,7 +1,7 @@
 from pandas import Series
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.preprocessing.text import one_hot
-from Abstractions.PreProcessor import PreProcessor
+from PreProcessing.Abstractions.PreProcessor import PreProcessor
 
 
 class EmbeddingDocEncoder(PreProcessor):
@@ -20,6 +20,9 @@ class EmbeddingDocEncoder(PreProcessor):
         self.sentences  = [' '.join(words) for words in data]
         print('Got Senteces !\n')
         return super().fit(data)
+    
+    def get_vocab_size(self):
+        return self.vo_size
     
     def transform(self, data: Series):
         print('Building onehotrep encoding..\n')

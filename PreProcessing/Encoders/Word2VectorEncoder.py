@@ -25,6 +25,7 @@ class Word2VectorEncoder(PreProcessor):
         self.train_epochs = train_epochs
         self.model_w2v = None
         self.corpus = None
+        self.vocab_size = None
         
     
     def __labelizeWords(self,words):
@@ -106,8 +107,11 @@ class Word2VectorEncoder(PreProcessor):
         vocab = self.model_w2v.wv.key_to_index
         vo_size= len(list(vocab.keys()))
         vo_gap = 50
-        
+        self.vocab_size = vo_size
         return np.array([ np.int64(v + vo_size - vo_gap) for v in words_arrays])
+    
+    def get_vocab_size(self):
+        return self.vocab_size
 
     
     def transform(self, data: Series):
@@ -118,3 +122,6 @@ class Word2VectorEncoder(PreProcessor):
         print('\n')
         print('Words Encoded as vectors !')
         return words_as_vectors 
+    
+    
+    

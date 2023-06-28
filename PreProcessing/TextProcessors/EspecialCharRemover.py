@@ -1,4 +1,4 @@
-from Abstractions.PreProcessor import PreProcessor
+from PreProcessing.Abstractions.PreProcessor import PreProcessor
 import re
 from pandas import Series
 
