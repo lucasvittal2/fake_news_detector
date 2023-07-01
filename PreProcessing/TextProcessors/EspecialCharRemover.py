@@ -7,7 +7,9 @@ class EspecialCharRemover(PreProcessor):
         self.name: str = name
         
     def __remove_especial_chars(self, text):
-        return re.sub(r'[^a-zA-Z0-9\s]', ' ', text)
+        no_esp_char = re.sub(r'[^A-Za-z]+', ' ', text)
+        return no_esp_char
+    
         
     def fit(self, data: Series):
         return super().fit(data)
@@ -15,6 +17,7 @@ class EspecialCharRemover(PreProcessor):
     def transform(self, data: Series, y=None):
         print('Removing Especial Characters...')
         no_esp_char = data.apply(self.__remove_especial_chars)
+
         print('Especial Characters removed !\n')
         
         return no_esp_char

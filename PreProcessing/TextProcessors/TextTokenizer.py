@@ -1,7 +1,9 @@
+import nltk
+import numpy as np
 from nltk.tokenize import word_tokenize
 from PreProcessing.Abstractions.PreProcessor import PreProcessor
 from pandas import Series
-import nltk
+
 
 class TextTokenizer(PreProcessor):
     
@@ -15,9 +17,11 @@ class TextTokenizer(PreProcessor):
         
         return super().fit(data)
     
+  
+    
     def transform(self, data: Series):
+        
         print("Tokenizing Sentences...")
         tokenized_words = data.apply(nltk.word_tokenize)
         print("Tokenization Done!\n")
-       
         return tokenized_words 

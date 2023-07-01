@@ -3,7 +3,6 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.preprocessing.text import one_hot
 from PreProcessing.Abstractions.PreProcessor import PreProcessor
 
-
 class EmbeddingDocEncoder(PreProcessor):
     
     def __init__(self, vo_size, sent_length ,name="EmbeddingDocEncoder"):

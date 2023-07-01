@@ -13,6 +13,10 @@ class SimpleDense(ArchitectureBuilder):
     def __build_model(self):
         model = Sequential()
         model.add(Dense(32, activation='relu', input_dim= self.sents_length))
+        model.add(Dense(16, activation='relu', input_dim= self.sents_length))
+        model.add(Dense(16, activation='relu', input_dim= self.sents_length))
+        model.add(Dense(16, activation='relu', input_dim= self.sents_length))
+        model.add(Dense(16, activation='relu', input_dim= self.sents_length))
         model.add(Dense(1, activation='sigmoid'))
         model.compile(optimizer='rmsprop',loss='binary_crossentropy', metrics=['accuracy'])
         return model

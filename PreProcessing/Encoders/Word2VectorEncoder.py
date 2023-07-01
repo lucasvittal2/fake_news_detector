@@ -121,7 +121,8 @@ class Word2VectorEncoder(PreProcessor):
         words_as_vectors = self.__shift_and_transform_array(words_as_vectors)
         print('\n')
         print('Words Encoded as vectors !')
-        return words_as_vectors 
+        
+        return words_as_vectors
     
     
     

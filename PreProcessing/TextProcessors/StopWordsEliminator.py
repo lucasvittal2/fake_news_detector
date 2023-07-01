@@ -18,10 +18,19 @@ class StopWordsEliminator(PreProcessor):
         self.name=name
         self.language = language
         self.stopwords = stopwords.words(language)
+        self.word_index = []
    
     def __eliminate_stopwords(self, tokens):
-       return [word.lower() for word in tokens if word.lower() not in self.stopwords]
+       no_stop_words =   [word.lower() for word in tokens if word.lower() not in self.stopwords]
+       return [word for word in no_stop_words if len(word) > 1]
    
+    def __update_vocab(self, sentences):
+        
+        for tokens in sentences:
+            actual_vocab_size = len(self.word_index)
+            for idx, token in enumerate(tokens):
+                if token not in [word_idx[1] for word_idx in self.word_index ]:
+                    self.word_index.append( (idx + actual_vocab_size, token) )
         
     def fit(self, data: Series):
         return super().fit(data)
@@ -30,6 +39,7 @@ class StopWordsEliminator(PreProcessor):
         
         print('Eliminating stopwords...')
         no_stop_words = data.apply(self.__eliminate_stopwords)
+        self.__update_vocab(no_stop_words)
         print('Stop words Eliminated !\n')
        
         return no_stop_words

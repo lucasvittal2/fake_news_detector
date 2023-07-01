@@ -20,15 +20,22 @@ from PreProcessing.TextProcessors.StopWordsEliminator import StopWordsEliminator
 from PreProcessing.TextProcessors.TextRSLPSSteammer import TextRSLPSSteammer
 from PreProcessing.Encoders.EmbeddingDocEncoder import EmbeddingDocEncoder
 
-
+# load data
 fake_news_df = pd.read_csv(TRUE_NEWS_DATASET)
 true_news_df = pd.read_csv(FAKE_NEWS_DATASET)
 
 news_df = Cocatenator().concatenate( fake_news_df, true_news_df)
 
+#build news data
+news_df['news']  = news_df[['title', 'text']].apply(lambda row: row['title'] + ' '  + row['text'], axis = 1) #joint title with text
+
+
 print('\n')
 print('='*150)
 print('Inicializing Preprocessing setup...')
+
+# SET Preprocessors
+
 preprocessors = [
     ('EspecialCharRemover', EspecialCharRemover()),
     ('WordTokeniner', TextTokenizer()),
@@ -38,19 +45,23 @@ preprocessors = [
 ]
 print('Setup  done! \n')
 print('*'*100)
-print('Starting Preprocessing...\n')
+print('Starting Preprocessing News...\n')
 
-preprocessors = Pipeline(steps = preprocessors)
-text_arrays= preprocessors.fit_transform(news_df['text'])
-title_arrays = preprocessors.fit_transform(news_df['title'])
+preprocessors_pipeline= Pipeline(steps = preprocessors)
 
-print('Preprocessing Done!\n')
+# Execute preprocessing 
+
+word_news_arrays= preprocessors_pipeline.fit_transform(news_df['news'])
+
+
+print('News Preprocessing Done!\n')
 print('='*150)
 
+#save data 
 
 print('Saving Data..\n')
-np.savetxt(PREPROCESSED_DATA_PATH + 'embedding_doc_text_arrays.csv', text_arrays, delimiter=',')
-np.savetxt(PREPROCESSED_DATA_PATH + 'embedding_doc_title_arrays.csv', title_arrays, delimiter=',')
+np.savetxt(PREPROCESSED_DATA_PATH + 'embedding_doc_word_news_arrays.csv', word_news_arrays, delimiter=',')
+
 print('Data Saved')
 
 print('Preprocessing Done ! \n')
