@@ -27,7 +27,7 @@ class TCNModel(ArchitectureBuilder):
                     # Assign the embedding weight with word2vec embedding marix
                     weights = [self.emb_matrix],
                     # Set the weight to be not trainable (static)
-                    trainable = False)(inp)
+                    trainable = True)(inp)
         
         x = SpatialDropout1D(0.1)(x)
         
@@ -70,9 +70,10 @@ class TCNModel(ArchitectureBuilder):
                 
                 embed_matrix[idx] = word_to_vec_map.get_vector(word)
                 
-        self.embed_matrix = embed_matrix
+        self.emb_matrix = embed_matrix
+        
     
     
     def get_model(self) -> Sequential:
-            model = self.model = self.__build_model()
+            model = self.__build_model()
             return model

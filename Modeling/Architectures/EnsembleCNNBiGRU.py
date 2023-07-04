@@ -28,8 +28,7 @@ class EnsembleCNNBiGRU(ArchitectureBuilder):
         input1 = Input(shape=(self.max_length,))
         embeddding1 = Embedding(input_dim=self.input_dim, 
                                 output_dim=self.output_dim, 
-                                input_length=self.max_length, 
-                                input_shape=(self.max_length, ),
+                                input_length=self.max_length,
                                 # Assign the embedding weight with word2vec embedding marix
                                 weights = [self.emb_matrix],
                                 # Set the weight to be not trainable (static)
@@ -47,12 +46,11 @@ class EnsembleCNNBiGRU(ArchitectureBuilder):
         input2 = Input(shape=(self.max_length,))
         embeddding2 = Embedding(input_dim=self.input_dim, 
                                 output_dim=self.output_dim, 
-                                input_length=self.max_length, 
-                                input_shape=(self.max_length, ),
+                                input_length=self.max_length,
                                 # Assign the embedding weight with word2vec embedding marix
                                 weights = [self.emb_matrix],
                                 # Set the weight to be not trainable (static)
-                                trainable = False,
+                                trainable = True,
                                 mask_zero=True)(input2)
         gru2 = Bidirectional(GRU(64))(embeddding2)
         drop2 = Dropout(0.5)(gru2)
@@ -91,7 +89,8 @@ class EnsembleCNNBiGRU(ArchitectureBuilder):
                 
                 embed_matrix[idx] = word_to_vec_map.get_vector(word)
                 
-        self.embed_matrix = embed_matrix
+        self.emb_matrix = embed_matrix
+        return  embed_matrix
     
     
     def get_model(self) -> Sequential:

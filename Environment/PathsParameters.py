@@ -18,3 +18,8 @@ MAIN_PROJECT_MODULES = [ 'PreProcessing', '']
 # PretTrained Model
 
 GOOGLE_PRETRAINED_MODEL_PATH = BASE_PROJECT_PATH + '/PreTrainedModels/GoogleNews-vectors-negative300.bin'
+
+#PATHS for modeling
+
+TRAIN_HIST_ASSET_PATH = BASE_PROJECT_PATH + '/Assets/FigsTrainHist/'
+MODELS_PATH = BASE_PROJECT_PATH + '/Code/Modeling/Training/TrainedModels/'

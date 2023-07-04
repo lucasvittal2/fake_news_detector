@@ -4,6 +4,7 @@ sys.path.append('../')
 
 from Utils.ProjectPathsSetup import ProjectPathsSetup
 from Utils.Concatenator import Cocatenator
+from Utils.JSONHandler import JSONHandler
 ProjectPathsSetup().add_project_paths('../')
 
 
@@ -21,27 +22,29 @@ from PreProcessing.TextProcessors.TextRSLPSSteammer import TextRSLPSSteammer
 from PreProcessing.Encoders.EmbeddingDocEncoder import EmbeddingDocEncoder
 
 # load data
-fake_news_df = pd.read_csv(TRUE_NEWS_DATASET)
-true_news_df = pd.read_csv(FAKE_NEWS_DATASET)
 
-news_df = Cocatenator().concatenate( fake_news_df, true_news_df)
+news_df = pd.read_csv(DATASET_PATH  + 'news.csv', sep=',')
 
-#build news data
-news_df['news']  = news_df[['title', 'text']].apply(lambda row: row['title'] + ' '  + row['text'], axis = 1) #joint title with text
+
 
 
 print('\n')
 print('='*150)
 print('Inicializing Preprocessing setup...')
-
+#instantiate preprocessors
+especialCharRemover = EspecialCharRemover()
+tokenizer = TextTokenizer()
+stopwordsEliminator = StopWordsEliminator(language='english',  updtVocab=True)
+steammer = TextRSLPSSteammer()
+embdocEncoder = EmbeddingDocEncoder(vo_size=500, sent_length=20)
 # SET Preprocessors
 
 preprocessors = [
-    ('EspecialCharRemover', EspecialCharRemover()),
-    ('WordTokeniner', TextTokenizer()),
-    ('StopWordsEliminator', StopWordsEliminator(language='english')),
-    ('TextRSLPSSteammer', TextRSLPSSteammer()),
-    ('EmbeddingDocEncoder', EmbeddingDocEncoder(vo_size=500, sent_length=20))
+    ('EspecialCharRemover', especialCharRemover),
+    ('WordTokeniner', tokenizer),
+    ('StopWordsEliminator', stopwordsEliminator),
+    ('TextRSLPSSteammer', steammer),
+    ('EmbeddingDocEncoder', embdocEncoder)
 ]
 print('Setup  done! \n')
 print('*'*100)
@@ -61,7 +64,7 @@ print('='*150)
 
 print('Saving Data..\n')
 np.savetxt(PREPROCESSED_DATA_PATH + 'embedding_doc_word_news_arrays.csv', word_news_arrays, delimiter=',')
-
+JSONHandler().save_json(PREPROCESSED_DATA_PARAMS_PATH + 'test_get_vocab.json', stopwordsEliminator.word_index)
 print('Data Saved')
 
 print('Preprocessing Done ! \n')

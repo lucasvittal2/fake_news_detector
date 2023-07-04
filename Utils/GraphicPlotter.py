@@ -8,7 +8,7 @@ class GraphicPlotter():
         pass
     
     
-    def plot_train_history(self, train_history: History):
+    def plot_train_history(self, train_history: History, model_name: str):
         
         
         
@@ -30,4 +30,7 @@ class GraphicPlotter():
         axs[1].set_ylabel('Loss',fontsize=FONT_SIZE)
         axs[1].set_xlabel('Epoch', fontsize=FONT_SIZE)
         axs[1].legend(['train', 'test'], loc='upper left')
-    
+        
+        fig.suptitle(f'{model_name} Train History', fontsize=40)
+
+        return fig

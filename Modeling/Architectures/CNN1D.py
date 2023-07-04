@@ -15,14 +15,20 @@ class CNN1D(ArchitectureBuilder):
         self.input_dim = input_dim
         self.output_dim = output_dim
         self.max_length = max_length
-        self.embed_matrix = emb_matrix
+        self.emb_matrix = emb_matrix
     
     def __build_model(self) -> Sequential:
+        
         model = tf.keras.models.Sequential([
-        tf.keras.layers.Embedding(input_dim=self.vocab_size, 
+          tf.keras.layers.Embedding(input_dim=self.input_dim, 
                                   output_dim=self.output_dim, 
-                                  input_length=self.max_length, 
-                                  input_shape=(self.max_length, )),
+                                  input_length= self.max_length,
+                                  # Assign the embedding weight 
+                                  # with word2vec embedding marix
+                                  weights = [self.emb_matrix],
+                                  # Set the weight to be not 
+                                  # trainable (static)
+                                  trainable = True),
         
         tf.keras.layers.Conv1D(filters=self.filters, 
                                kernel_size = self.kernel_size, 
@@ -53,7 +59,7 @@ class CNN1D(ArchitectureBuilder):
         return model
     
     def build_pretrained_embedding_matrix(self, word_to_vec_map, word_to_index, emb_mean, emb_std):
-    
+        
         np.random.seed(SEED)
         
         # adding 1 to fit Keras embedding (requirement)
@@ -74,7 +80,8 @@ class CNN1D(ArchitectureBuilder):
                 
                 embed_matrix[idx] = word_to_vec_map.get_vector(word)
                 
-        self.embed_matrix = embed_matrix
+        self.emb_matrix = embed_matrix
+        return  embed_matrix
     
     def get_model(self) -> Sequential:
        model = self.__build_model()

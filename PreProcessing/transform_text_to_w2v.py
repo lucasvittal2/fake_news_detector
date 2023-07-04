@@ -23,24 +23,23 @@ from PreProcessing.TextProcessors.TextRSLPSSteammer import TextRSLPSSteammer
 from PreProcessing.Encoders.Word2VectorEncoder import Word2VectorEncoder
 
 
-fake_news_df = pd.read_csv(TRUE_NEWS_DATASET)
-true_news_df = pd.read_csv(FAKE_NEWS_DATASET)
+
+# load data
+news_df = pd.read_csv(DATASET_PATH  + 'news.csv', sep=',')
+
 
 
 #to write json files
 
 jsonHandler = JSONHandler()
 
-news_df = Cocatenator().concatenate(fake_news_df, true_news_df)
-news_df['news']  = news_df[['title', 'text']].apply(lambda row: row['title'] + ' '  + row['text'], axis = 1) #joint title with text
-
 #instantiate preprocessors
 
 charRemover= EspecialCharRemover()
 tokenizer = TextTokenizer()
-stopWordsEliminator= StopWordsEliminator(language='english')
+stopWordsEliminator= StopWordsEliminator(language='english', updtVocab=True)
 stemmer= TextRSLPSSteammer()
-w2vEncoder  = Word2VectorEncoder('Word2VectorEncoder', label_type='testing_preprocessing', vec_dim= TITLE_VEC_DIM,window=5,min_count=10, workers=4)
+w2vEncoder  = Word2VectorEncoder('Word2VectorEncoder', label_type='testing_preprocessing', vec_dim= NEWS_VEC_DIM ,window=5,min_count=10, workers=4)
 
 
 print('\n')

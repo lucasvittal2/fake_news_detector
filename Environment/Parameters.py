@@ -2,9 +2,10 @@
 SEED = 101
 
 
+
+
 # Parameters for preprocessing
-TEXT_VEC_DIM= 100
-TITLE_VEC_DIM= 50
+NEWS_VEC_DIM= 50
 SENT_LENGTH = 20
 #Parameters for models
 VO_SIZE_TITLE=500
@@ -16,5 +17,6 @@ EMBEDDING_TEXT_SIZE = 100
 
 FONT_SIZE=20
 TITLE_SIZE=30
+
 
 
