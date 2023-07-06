@@ -5,7 +5,6 @@ import pickle
 import pandas as pd
 import sys
 import tensorflow as tf
-from matplotlib.pyplot import savefig, title
 from sklearn.model_selection import train_test_split
 from gensim.models import KeyedVectors
 
@@ -35,8 +34,8 @@ from Environment.Parameters import *
 
     
     
-print('='*150)
-print('*'*150)    
+print('='*148)
+print('*'*148)    
 print('#Loading data...\n')
 
 print('Loading. Dataset...')    
@@ -58,7 +57,7 @@ print('Got PreProcessed News !!')
 grapPlotter = GraphicPlotter()
 jsonHandler = JSONHandler()
     
-print('*'*150) 
+print('*'*148) 
 print('#Making the modeling setup...')
 # Set Seed to guarantee reprodubility
 np.random.seed(SEED)
@@ -83,7 +82,7 @@ google_news_word2vec = KeyedVectors.load_word2vec_format(
 gooogle_w2v_emb_mean = google_news_word2vec.vectors.mean()
 gooogle_w2v_emb_std = google_news_word2vec.vectors.std()
 print('Got Google Pretrained Model !!')
-print('*'*150) 
+print('*'*148) 
 
 #Instantiate algorithm
 
@@ -97,14 +96,14 @@ print("Setting up emb_doc_LSTMEMbedding...")
 emb_doc_lstm_embedding = EmbeddingLSTM(VO_SIZE_TEXT, EMBEDDING_TEXT_SIZE,100).get_model()
 print("emb_doc_LSTMEMbedding set up done !!")
 print(emb_doc_lstm_embedding.summary())
-print('-'*150)
+print('-'*148)
 
 print("Setting up emb_doc_simpleDense...")
 #simpleDense
 emb_doc_simple_dense = SimpleDense(SENT_LENGTH).get_model()
 print("emb_doc_simpleDense set up done !!")
 print(emb_doc_simple_dense.summary())
-print('-'*150)
+print('-'*148)
 
 #instantiate, setup and get TCN model
 print("Setting up emb_doc_TCN...")
@@ -115,7 +114,7 @@ print('embedding Matrix built !!')
 emb_doc_tcn = emb_doc_tcn.get_model()
 print("emb_doc_TCN set up done !!")
 print(emb_doc_tcn.summary())
-print('-'*150)
+print('-'*148)
 
 
 #instantiate, setup and get CNN1D model 
@@ -127,7 +126,7 @@ print('embedding Matrix built !!')
 emb_doc_cnn1d = emb_doc_cnn1d.get_model()
 print("emb_doc_TCN set up done !!")
 print(emb_doc_cnn1d.summary())
-print('-'*150)
+print('-'*148)
 
 #instantiate, setup and get EnsembleCNNBiGRU modeel
 print("Setting up emb_doc_EnsembleCNN...")
@@ -138,7 +137,7 @@ print('embedding Matrix built !!')
 emb_doc_ensemblecnn = emb_doc_ensemblecnn.get_model()
 print("emb_doc_TCN set up done !!")
 print(emb_doc_ensemblecnn.summary())
-print('-'*150)
+print('-'*148)
 
 
 #Word2Vector Enconding
@@ -148,14 +147,14 @@ print("Setting up wv2_LSTMEMbedding...")
 w2v_emb_lstm =  EmbeddingLSTM(vocab_params['news_vocab_size'], EMBEDDING__TITLE_SIZE, 100).get_model()
 print("wv2_LSTMEMbedding set up done !!")
 print(w2v_emb_lstm.summary())
-print('-'*150)
+print('-'*148)
 
 #SimpleDense
 print("Setting up w2v_simpleDense...")
 w2v_simple_dense = SimpleDense(NEWS_VEC_DIM).get_model()
 print("w2v_simpleDense set up done !!")
 print(w2v_simple_dense.summary())
-print('-'*150)
+print('-'*148)
 
 #instantiate and configure TCN
 print("Setting up w2v_TCN...")
@@ -163,10 +162,10 @@ w2v_tcn = TCNModel(input_dim= vocab_size)
 print('Building embedding Matrix...')
 w2v_tcn.build_pretrained_embedding_matrix(google_news_word2vec, word_idxs, gooogle_w2v_emb_mean, gooogle_w2v_emb_std)
 print('embedding Matrix built !!')
-w2v_tcn_model = w2v_tcn.get_model()
+w2v_tcn = w2v_tcn.get_model()
 print("w2v_TCN set up done !!")
-print(w2v_tcn_model.summary())
-print('-'*150)
+print(w2v_tcn.summary())
+print('-'*148)
 
 #instantiate and configure CNN1D
 print("Setting up w2v_CNN1D...")
@@ -177,7 +176,7 @@ print('embedding Matrix built !!')
 w2v_cnn1d = w2v_cnn1d.get_model()
 print("w2v_CNN1D set up done !!")
 print(w2v_cnn1d.summary())
-print('-'*150)
+print('-'*148)
 
 
 #instantiate and configure EnsembleCNNBiGRU
@@ -189,20 +188,24 @@ print('embedding Matrix built !!')
 w2v_ensemblecnn = w2v_ensemblecnn.get_model()
 print("w2v_EnsembleCNN set up done !!")
 print(w2v_ensemblecnn.summary())
-print('-'*150)
+print('-'*148)
 
+#EmbeddingDoc algorithms
 emb_doc_algorithms = [  
-                #EmbeddingDoc
+                
                 ( "emb_doc_EmbeddingLSTM", emb_doc_lstm_embedding),
                 ( "emb_doc_SimpleDense",  emb_doc_simple_dense),
                 ( "emb_doc_TCN",  emb_doc_tcn ),
                 ("emb_doc_CNN1D", emb_doc_cnn1d),
                 ("emb_doc_EnsembleCNN", emb_doc_ensemblecnn)
-                ]
+                ] 
+
+#Word2Vec algorithms
 w2v_algorithms = [                
-                #Word2Vec
+                
                 ("w2v_EmbeddingLSTM", w2v_emb_lstm),
                 ("w2v_SimpleDense", w2v_simple_dense),
+                ( "w2v_tcn",  w2v_tcn ),
                 ("w2v_CNN1D", w2v_cnn1d),
                 ("w2v_EnsembleCNN", w2v_ensemblecnn)
                 ]
@@ -228,10 +231,10 @@ modelTrainer  = ModelTrainer()
 
 
 
-print('#'*150)
+print('#'*148)
 #with embeddindDoc Data
 print('Training with Embedding encoded Data...\n')
-modelTrainer.train_model(emb_doc_algorithms, X_emb_doc_train, y_emb_doc_train )
+#modelTrainer.train_model(emb_doc_algorithms, X_emb_doc_train, y_emb_doc_train )
 print('Training with embedingDoc Encoding data completed !!')
 
 #with w2v Data
@@ -246,10 +249,10 @@ sim_metrics = modelTrainer.get_sim_metrics()
 
 
 print('Saving all metrics obtained during the training...')
-jsonHandler.save_json(MODELS_PATH + 'sim_metrics.json', sim_metrics)
+jsonHandler.save_json(MODELS_PATH + 'sim_metrics_tcn_w2v.json', sim_metrics)
 print('All metrics Saved !!')
         
 print('Modeling Finished Successfully !!!')
         
-print('#'*150)
-print('='*150)
+print('#'*148)
+print('='*148)
