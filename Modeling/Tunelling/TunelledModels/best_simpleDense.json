@@ -1,0 +1,1 @@
+"{'optimizer': <keras.optimizers.optimizer_v2.adamax.Adamax object at 0x000001E6F7DFFEB0>, 'model__input_layer_size': 128, 'model__init_mode': 'glorot_uniform', 'model__hidden_layers_size': 64, 'epochs': 50, 'batch_size': 100}"
