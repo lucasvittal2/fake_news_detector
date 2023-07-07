@@ -3,3 +3,13 @@ test_notebook.ipynb
 launch.json
 .gitignore
 Modeling/Training/TrainedModels/*
+/Modeling/Tunelling/TunelledModels/TunellingData/*
+Modeling/Tunelling/Modeling/Tunelling/untitled_project/*
+Modeling/Tunelling/Modeling/Tunelling/untitled_project/tuner0.json
+Modeling/Tunelling/TunellingData/untitled_project/*.json
+Modeling/Tunelling/TunellingData/untitled_project/trial_0/trial.json
+Modeling/Tunelling/TunellingData/untitled_project/trial_1/trial.json
+Modeling/Tunelling/TunellingData/untitled_project/trial_2/trial.json
+test_notebok.ipynb
+.gitignore
+Modeling/Tunelling/TunelledModels/best_simpleDense.json
