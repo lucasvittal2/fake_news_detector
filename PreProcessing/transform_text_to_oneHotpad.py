@@ -19,11 +19,11 @@ from PreProcessing.TextProcessors.EspecialCharRemover import EspecialCharRemover
 from PreProcessing.TextProcessors.TextTokenizer import TextTokenizer
 from PreProcessing.TextProcessors.StopWordsEliminator import StopWordsEliminator
 from PreProcessing.TextProcessors.TextRSLPSSteammer import TextRSLPSSteammer
-from PreProcessing.Encoders.EmbeddingDocEncoder import EmbeddingDocEncoder
+from PreProcessing.Encoders.OneHotPadEncoder import OneHotPadEncoder
 
 # load data
 
-news_df = pd.read_csv(DATASET_PATH  + 'news.csv', sep=',')
+news_df = pd.read_csv(DATASET_PATH  + 'news.csv', sep=',').iloc[:50]
 
 
 
@@ -36,7 +36,7 @@ especialCharRemover = EspecialCharRemover()
 tokenizer = TextTokenizer()
 stopwordsEliminator = StopWordsEliminator(language='english',  updtVocab=True)
 steammer = TextRSLPSSteammer()
-embdocEncoder = EmbeddingDocEncoder(vo_size=500, sent_length=20)
+oneHotPadEncoder = OneHotPadEncoder(vo_size=500, sent_length=20)
 # SET Preprocessors
 
 preprocessors = [
@@ -44,7 +44,7 @@ preprocessors = [
     ('WordTokeniner', tokenizer),
     ('StopWordsEliminator', stopwordsEliminator),
     ('TextRSLPSSteammer', steammer),
-    ('EmbeddingDocEncoder', embdocEncoder)
+    ('OneHotPadEncoder', oneHotPadEncoder)
 ]
 print('Setup  done! \n')
 print('*'*100)

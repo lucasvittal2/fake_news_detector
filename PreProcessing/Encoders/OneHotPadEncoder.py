@@ -3,9 +3,9 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.preprocessing.text import one_hot
 from PreProcessing.Abstractions.PreProcessor import PreProcessor
 
-class EmbeddingDocEncoder(PreProcessor):
+class OneHotPadEncoder(PreProcessor):
     
-    def __init__(self, vo_size, sent_length ,name="EmbeddingDocEncoder"):
+    def __init__(self, vo_size, sent_length ,name="OneHotPadEncoder"):
         
         self.name = name
         self.vo_size = vo_size
