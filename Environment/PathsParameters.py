@@ -23,4 +23,6 @@ GOOGLE_PRETRAINED_MODEL_PATH = BASE_PROJECT_PATH + '/PreTrainedModels/GoogleNews
 
 TRAIN_HIST_ASSET_PATH = BASE_PROJECT_PATH + '/Assets/FigsTrainHist/'
 MODELS_PATH = BASE_PROJECT_PATH + '/Code/Modeling/Training/TrainedModels/'
+EXPERIMENTATION_TRAIN_PATH = MODELS_PATH + '/Experimentation/'
+TUNNELD_TRAIN_MODEL_PATH = MODELS_PATH + '/Tunnelled/'
 TUNNELED_MODELS_PATH = BASE_PROJECT_PATH + '/Code/Modeling/Tunelling/TunelledModels/'

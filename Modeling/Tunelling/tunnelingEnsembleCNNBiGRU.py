@@ -7,9 +7,9 @@ import numpy as np
 
 
 from scikeras.wrappers import KerasClassifier
-from sklearn.model_selection import RandomizedSearchCV, train_test_split
+from sklearn.model_selection import  train_test_split
 from kerastuner.tuners import RandomSearch
-from kerastuner import HyperParameters
+
 
 from Environment.Parameters import *
 from Environment.PathsParameters import *
@@ -31,10 +31,6 @@ news_class = news_df['label']
 
 
 #get google pretrained w2v
-
-
-
- 
 print('Building embedding matrix..../n')
 
 word_idxs = jsonHandler.read_json(PREPROCESSED_DATA_PARAMS_PATH + 'word_indexes.json' )['word_index_news']
@@ -44,11 +40,6 @@ vocab_size = len(word_idxs) + 1
 print('Embedding Matrix Built !!')
 print('Google  Pretrained model setup completed !!')
 print('*'*148)
-
-
-#get model creator
-
-
 
 # get feature and label from dataset
 
@@ -61,13 +52,6 @@ print('Train and test set defined !!')
 
 #Setup search space
 print("*"*148)
-print('Getting hyperparameters...')
-
-
-
-
-print('Hyperparameter set defined !!')
-print("*"*148)
 
 
 print('Data Loaded !!/n')
@@ -76,14 +60,6 @@ word_idxs = jsonHandler.read_json(PREPROCESSED_DATA_PARAMS_PATH + 'word_indexes.
 google_news_word2vec,gooogle_w2v_emb_mean, gooogle_w2v_emb_std =   google_w2v_setup()
 vocab_size = len(word_idxs) + 1
 emb_matrix = build_pretrained_embedding_matrix(google_news_word2vec, word_idxs, gooogle_w2v_emb_mean, gooogle_w2v_emb_std) 
-
-
-# create Keras model wrapped by SkLearn.KerasClassifier
-#shape = np.array(X_w2v_train).shape
-#model = KerasClassifier(model = create_EnsembleCNN2, epochs=100, batch_size=10, verbose=10)
-
-
-
 
 
 print('Starting RadomSearch...')

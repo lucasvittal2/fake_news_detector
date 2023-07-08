@@ -36,7 +36,7 @@ class ModelTrainer():
                     train_hist = alg.fit(X_train, y_train, validation_split=0.2, epochs=40, batch_size=32, verbose=1)
                     
                 else:
-                    train_hist = alg.fit([X_train, X_train] , y_train, validation_split=0.2, epochs=40, batch_size=32, verbose=1)
+                    train_hist = alg.fit([X_train, X_train] , y_train, validation_split=0.2, epochs=200, batch_size=32, verbose=1)
                     
                 print(f"Model {name} is trained !!")
                 print('-'*150)
