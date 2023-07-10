@@ -108,7 +108,7 @@ def create_EnsembleCNN2(hp,vocab_size, emb_matrix) -> Sequential:
     hp_activation = hp.Choice('activation',values=['relu','sigmoid','tanh','selu','elu','softmax'])
     hp_batch_size = hp.Choice('batch_size', values=[10, 20, 40, 60, 80, 100, 128, 512]) 
     hp_epochs = hp.Int('epoch', min_value = 10, max_value = 100, step= 10)
-    hp_optimizers =hp.Choice('optimizers', values= [ 'adam','adafactor','adamw','adagrad','adamax','adadelta','rmsprop','sgd','nadam','ftrl'])
+    hp_optimizers =hp.Choice('optimizers', values= ['sgd', 'adam','adagrad','adamax','adadelta','rmsprop','nadam','ftrl'])
    
    
     

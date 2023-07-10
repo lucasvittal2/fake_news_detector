@@ -205,7 +205,7 @@ w2v_algorithms = [
                 
                 ("w2v_EmbeddingLSTM", w2v_emb_lstm),
                 ("w2v_SimpleDense", w2v_simple_dense),
-                ( "w2v_tcn",  w2v_tcn ),
+                ( "w2v_ tcn",  w2v_tcn ),
                 ("w2v_CNN1D", w2v_cnn1d),
                 ("w2v_EnsembleCNN", w2v_ensemblecnn)
                 ]
@@ -249,7 +249,7 @@ sim_metrics = modelTrainer.get_sim_metrics()
 
 
 print('Saving all metrics obtained during the training...')
-jsonHandler.save_json(MODELS_PATH + 'sim_metrics_tcn_w2v.json', sim_metrics)
+jsonHandler.save_json(MODELS_PATH + 'sim_metrics_only_w2v.json', sim_metrics)
 print('All metrics Saved !!')
         
 print('Modeling Finished Successfully !!!')

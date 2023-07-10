@@ -25,10 +25,15 @@ from PreProcessing.Encoders.Word2VectorEncoder import Word2VectorEncoder
 
 
 # load data
-news_df = pd.read_csv(DATASET_PATH + 'news.csv')
-news_df = news_df[['news','label']]
+news_df = pd.read_csv(WEL_FAKE_DATASET, sep=',')
 
+news_df = news_df.dropna()
+news_df['news']  = news_df[['title', 'text']].apply(lambda row: row['title'] + ' '  + row['text'], axis = 1) #joint title with text
+news_df = news_df[['news', 'label']]
 
+#sample 30000 rows 
+
+news_df = news_df.sample(n=30000, random_state=SEED)
 
 #to write json files
 
@@ -78,14 +83,16 @@ print('='*150)
 
 print('Saving Data..\n')
 news_vocab_size = w2vEncoder.get_vocab_size()
-np.savetxt(PREPROCESSED_DATA_PATH + 'w2v_word_news_arrays.csv', word_news_arrays, delimiter=',')
+np.savetxt(PREPROCESSED_DATA_PATH + 'w2v_word_news_arrays_production.csv', word_news_arrays, delimiter=',')
+np.savetxt(PREPROCESSED_DATA_PATH + 'labels_production.csv', news_df['label'].values, delimiter=',')
 
 
-jsonHandler.save_json(PREPROCESSED_DATA_PARAMS_PATH + 'vocab_params.json', 
+
+jsonHandler.save_json(PREPROCESSED_DATA_PARAMS_PATH + 'vocab_params_production.json', 
                       {"news_vocab_size": news_vocab_size}
                       )
 
-jsonHandler.save_json(PREPROCESSED_DATA_PARAMS_PATH + 'word_indexes.json',{'word_index_news': stopWordsEliminator.word_index}  )
+jsonHandler.save_json(PREPROCESSED_DATA_PARAMS_PATH + 'word_indexes_production.json',{'word_index_news': stopWordsEliminator.word_index}  )
 
 print('Data Saved')
 

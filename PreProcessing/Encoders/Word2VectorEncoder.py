@@ -72,11 +72,11 @@ class Word2VectorEncoder(PreProcessor):
     
     
     def __buildWordVector(self, labeled_data):
-        print('Building scaled vector...\n')
+       
         
         vectorizer = TfidfVectorizer(analyzer=lambda x: x, min_df=10)
         matrix = vectorizer.fit_transform([x.words for x in labeled_data])
-        tfidf = dict(zip(vectorizer.get_feature_names(), vectorizer.idf_))
+        tfidf = dict(zip(vectorizer.get_feature_names_out(), vectorizer.idf_))
        
         train_vecs_w2v = np.concatenate([self.__auxBuildWordVector(z, self.vec_dim, self.model_w2v, tfidf) for z in tqdm(map(lambda x: x.words, labeled_data))])
         train_vecs_w2v = scale(train_vecs_w2v)

@@ -73,7 +73,7 @@ filters = [100,150,200,250,300]
 activation_functions =['relu','sigmoid','tanh','selu','elu','softmax']
 batch_size = [10, 20, 40, 60, 80, 100, 128, 512]
 epochs = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
-optimizers = [ 'adam','adafactor','adamw','adagrad','adamax','adadelta','rmsprop','sgd','nadam','ftrl']
+optimizers = [ 'sgd','adam','adafactor','adagrad','adamax','adadelta','rmsprop','nadam','ftrl']
 embedding_matrix = [ build_pretrained_embedding_matrix(google_news_word2vec, word_idxs, gooogle_w2v_emb_mean, gooogle_w2v_emb_std) ] 
 
 param_grid = dict( 

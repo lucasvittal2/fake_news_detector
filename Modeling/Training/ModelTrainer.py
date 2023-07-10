@@ -1,12 +1,14 @@
 import numpy as np
+from Environment.Parameters import SEED
 from Utils.GraphicPlotter import GraphicPlotter
 from  Environment.PathsParameters import TRAIN_HIST_ASSET_PATH, MODELS_PATH
 from matplotlib.pyplot import title
 
 class ModelTrainer():
     
-    def __init__(self):
+    def __init__(self, epochs=40):
         self.sim_metrics = {'mean_accuracy': {}, 'mean_loss': {}, 'mean_val_accuracy': {}, 'mean_val_loss': {}}
+        self.epochs = epochs
 
     def save_metrics(self, train_hist, model_name):
         #save mean metrics
@@ -25,7 +27,7 @@ class ModelTrainer():
         return self.sim_metrics
     
     def train_model (self, algorithms, X_train, y_train):
-        
+        np.random.seed(SEED)
         grapPlotter = GraphicPlotter()
         for name, alg in algorithms:
             
@@ -36,7 +38,7 @@ class ModelTrainer():
                     train_hist = alg.fit(X_train, y_train, validation_split=0.2, epochs=40, batch_size=32, verbose=1)
                     
                 else:
-                    train_hist = alg.fit([X_train, X_train] , y_train, validation_split=0.2, epochs=200, batch_size=32, verbose=1)
+                    train_hist = alg.fit([X_train, X_train] , y_train, validation_split=0.2, epochs=self.epochs, batch_size=32, verbose=1)
                     
                 print(f"Model {name} is trained !!")
                 print('-'*150)

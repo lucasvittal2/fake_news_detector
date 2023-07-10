@@ -108,7 +108,7 @@ ensemble_cnn_best_parms = {
 
 #instantiate and configure EnsembleCNNBiGRU
 print("Setting up w2v_EnsembleCNN...")
-w2v_ensemblecnn = EnsembleCNNBiGRU(input_dim= vocab_size, max_length=NEWS_VEC_DIM, trainable=False, kernel_size=11, filters=150, activation='tanh', optimizer='adamax' )
+w2v_ensemblecnn = EnsembleCNNBiGRU(input_dim= vocab_size, max_length=NEWS_VEC_DIM, trainable=False, kernel_size=7, filters=200, activation='tanh', optimizer='adamax' )
 print('Building embedding Matrix...')
 w2v_ensemblecnn.build_pretrained_embedding_matrix(google_news_word2vec, word_idxs, gooogle_w2v_emb_mean, gooogle_w2v_emb_std)
 print('embedding Matrix built !!')
@@ -122,7 +122,7 @@ print('-'*148)
 
 #Word2Vec algorithms
 tunelled_model = [                
-                    ("w2v_EnsembleCNN_Tunelled", w2v_ensemblecnn)
+                    ("w2v_EnsembleCNN_Tunelled2", w2v_ensemblecnn)
                 ]
 
 
@@ -159,7 +159,7 @@ sim_metrics = modelTrainer.get_sim_metrics()
 
 
 print('Saving all metrics obtained during the training...')
-jsonHandler.save_json(MODELS_PATH + 'sim_metrics_EnsembleCNN_tunneld.json', sim_metrics)
+jsonHandler.save_json(MODELS_PATH + 'sim_metrics_EnsembleCNN_tunneld2.json', sim_metrics)
 print('All metrics Saved !!')
         
 print('Modeling Finished Successfully !!!')

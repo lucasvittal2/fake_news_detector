@@ -44,12 +44,9 @@ news_df = pd.read_csv(DATASET_PATH  + 'news.csv', sep=',')
 print('Got Dataset !!')    
 
 print('Loading PreProcessed News Content...')
-#embedding doc
-news_embedding_doc = np.loadtxt(PREPROCESSED_DATA_PATH +'embedding_doc_word_news_arrays.csv', delimiter= ',')
 
-
-#word2vec
 news_w2v_encoded = np.loadtxt(PREPROCESSED_DATA_PATH +'w2v_word_news_arrays.csv', delimiter= ',')
+labels = np.loadtxt(PREPROCESSED_DATA_PATH +'labels.csv', delimiter= ',')
 print('Got PreProcessed News !!')
     
 #Instantiate necessary classes
@@ -108,7 +105,7 @@ ensemble_cnn_best_parms = {
 
 #instantiate and configure EnsembleCNNBiGRU
 print("Setting up w2v_EnsembleCNN...")
-w2v_ensemblecnn = EnsembleCNNBiGRU(input_dim= vocab_size, max_length=NEWS_VEC_DIM, trainable=False, kernel_size=11, filters=150, activation='tanh', optimizer='adamax' )
+w2v_ensemblecnn = EnsembleCNNBiGRU(input_dim= vocab_size, max_length=NEWS_VEC_DIM, trainable=False, kernel_size=7, filters=200, activation='tanh', optimizer='adamax' )
 print('Building embedding Matrix...')
 w2v_ensemblecnn.build_pretrained_embedding_matrix(google_news_word2vec, word_idxs, gooogle_w2v_emb_mean, gooogle_w2v_emb_std)
 print('embedding Matrix built !!')
@@ -122,7 +119,7 @@ print('-'*148)
 
 #Word2Vec algorithms
 tunelled_model = [                
-                    ("w2v_EnsembleCNN_all_data", w2v_ensemblecnn)
+                    ("w2v_EnsembleCNN_production", w2v_ensemblecnn)
                 ]
 
 
@@ -135,14 +132,14 @@ print('loading all features and labels...\n')
 #split train/test text and title  word vectors
 
 X_w2 = news_w2v_encoded
-y = news_class
+
 
 
 print('Data Ready for training !!\n')
 
 #Train models, save figure and save mean metrics
 
-modelTrainer  = ModelTrainer()
+modelTrainer  = ModelTrainer(epochs=35)
 
 
 
@@ -152,7 +149,7 @@ print('#'*148)
 
 #with w2v Data
 print('Training the Best model found...\n')
-modelTrainer.train_model(tunelled_model, X_w2, y )
+modelTrainer.train_model(tunelled_model, X_w2, labels )
 print('Training completed !!')
 
 #get metrics
@@ -162,7 +159,7 @@ sim_metrics = modelTrainer.get_sim_metrics()
 
 
 print('Saving all metrics obtained during the training...')
-jsonHandler.save_json(MODELS_PATH + 'sim_metrics_EnsembleCNN_all_data.json', sim_metrics)
+jsonHandler.save_json(MODELS_PATH + 'sim_metrics_EnsembleCNN_production.json', sim_metrics)
 print('All metrics Saved !!')
         
 print('Modeling Finished Successfully !!!')
