@@ -35,3 +35,9 @@ Mais informações e detalhes sobre o dateset utilizdo neste projeto pode ser en
  O link para acesso e download do dataset pode ser encontrado no próprio site da Unniversity of Victoria:
 
 [fake-news-detection-datasets](https://onlineacademiccommunity.uvic.ca/isot/2022/11/27/fake-news-detection-datasets/)
+
+
+Já a pasta do projeto pode ser acessada abaixo:
+
+[https://drive.google.com/drive/folders/11cZBjo4KEdqeFi59E_GlDIthiU77zxP5?usp=sharing](Fake News Dectetion Project Folder)
+
