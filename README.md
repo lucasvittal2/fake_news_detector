@@ -37,7 +37,7 @@ Mais informações e detalhes sobre o dateset utilizdo neste projeto pode ser en
 [fake-news-detection-datasets](https://onlineacademiccommunity.uvic.ca/isot/2022/11/27/fake-news-detection-datasets/)
 
 
-Já a pasta do projeto pode ser acessada abaixo:
+Já a pasta do projeto com todos os arquivos e dependências pode ser acessada abaixo:
 
 [Fake News Dectetion Project Folder](https://drive.google.com/drive/folders/11cZBjo4KEdqeFi59E_GlDIthiU77zxP5?usp=sharing)
 
