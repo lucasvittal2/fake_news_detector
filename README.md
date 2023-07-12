@@ -39,5 +39,5 @@ Mais informações e detalhes sobre o dateset utilizdo neste projeto pode ser en
 
 Já a pasta do projeto pode ser acessada abaixo:
 
-[https://drive.google.com/drive/folders/11cZBjo4KEdqeFi59E_GlDIthiU77zxP5?usp=sharing](Fake News Dectetion Project Folder)
+[Fake News Dectetion Project Folder](https://drive.google.com/drive/folders/11cZBjo4KEdqeFi59E_GlDIthiU77zxP5?usp=sharing)
 
