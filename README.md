@@ -41,5 +41,5 @@ Já a pasta do projeto com todos os arquivos e dependências pode ser acessada a
 
 [Fake News Dectetion Project Folder](https://drive.google.com/drive/folders/11cZBjo4KEdqeFi59E_GlDIthiU77zxP5?usp=sharing)
 
-O notebook encontra-se dentro da pasta folder.
+O notebook encontra-se dentro da pasta Code.
 
